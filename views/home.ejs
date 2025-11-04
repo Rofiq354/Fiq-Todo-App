@@ -1,4 +1,73 @@
-<h1>Halo Ini Halaman Home</h1>
-<h1 class="text-3xl font-bold text-blue-500">
-  Tailwind v3 sudah aktif tuan ✅
-</h1>
+<section class="w-full flex flex-col justify-center items-center">
+  <% if (error.length > 0) { %>
+  <div class="bg-red-100 text-red-700 p-2 rounded mb-3"><%= error %></div>
+  <% } %> <% if (success.length > 0) { %>
+  <div class="bg-green-100 text-green-700 p-2 rounded mb-3"><%= success %></div>
+  <% } %>
+  <form
+    class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 space-y-4"
+    method="post"
+    action="/add-todo"
+  >
+    <h1 class="text-2xl font-semibold text-gray-800 text-center">
+      Form Tambah Todo-List
+    </h1>
+
+    <div>
+      <label class="block text-gray-700 mb-1" for="title">Judul</label>
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        placeholder="Masukkan Judul..."
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-700 mb-1" for="desc">Deskripsi</label>
+      <textarea
+        id="desc"
+        name="desc"
+        rows="4"
+        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        placeholder="Masukkan deskripsi..."
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition"
+    >
+      Tambah Todo
+    </button>
+  </form>
+</section>
+
+<!-- Data Todo -->
+<section class="max-w-xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <!-- Card Todo -->
+  <% todos.forEach(todo => { %>
+  <div class="bg-white shadow-md rounded-lg p-4 group">
+    <div class="flex items-start justify-between">
+      <h3 class="text-lg font-semibold text-gray-800 uppercase">
+        <%= todo.title %>
+      </h3>
+
+      <button
+        type="submit"
+        onclick="openDeleteModal('<%= todo.id%>')"
+        class="opacity-0 group-hover:opacity-100 transition text-red-600 hover:text-red-700"
+      >
+        <!-- icon trash -->
+        <%- include('./partials/icon-trash') %>
+      </button>
+    </div>
+
+    <p class="text-sm text-gray-600 mt-2"><%= todo.desc %></p>
+  </div>
+  <% }) %>
+</section>
+
+<!-- modal delete konfirmasi -->
+<%- include('./partials/modal-confirm') %>
