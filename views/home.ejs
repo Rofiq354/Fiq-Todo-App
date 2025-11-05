@@ -7,10 +7,10 @@
   <form
     class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 space-y-4"
     method="post"
-    action="/add-todo"
+    action="<%= todo ? `/update-todo/${todo.id}` : `/add-todo` %>"
   >
     <h1 class="text-2xl font-semibold text-gray-800 text-center">
-      Form Tambah Todo-List
+      Form <%= todo ? `Edit` : `Tambah` %> Todo-List
     </h1>
 
     <div>
@@ -19,6 +19,7 @@
         type="text"
         id="title"
         name="title"
+        value="<%= todo ? todo.title : '' %>"
         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
         placeholder="Masukkan Judul..."
       />
@@ -32,14 +33,16 @@
         rows="4"
         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
         placeholder="Masukkan deskripsi..."
-      ></textarea>
+      >
+<%= todo ? todo.desc : '' %></textarea
+      >
     </div>
 
     <button
       type="submit"
       class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-md transition"
     >
-      Tambah Todo
+      <%= todo ? 'Update Todo' : 'Tambah Todo' %>
     </button>
   </form>
 </section>
@@ -62,6 +65,14 @@
         <!-- icon trash -->
         <%- include('./partials/icon-trash') %>
       </button>
+
+      <a
+        href="/edit-todo/<%= todo.id %>"
+        class="opacity-0 group-hover:opacity-100 transition text-green-600 hover:text-green-700"
+      >
+        <!-- icon edit -->
+        <%- include('./partials/icon-edit') %>
+      </a>
     </div>
 
     <p class="text-sm text-gray-600 mt-2"><%= todo.desc %></p>

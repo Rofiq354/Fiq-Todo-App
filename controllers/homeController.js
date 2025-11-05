@@ -1,34 +1,27 @@
+const { saveTodos, objectTodo, findTodo } = require("../utils/index");
+
 const title = "Todo App";
-
-const todos = [];
-
-// obj todo
-const objectTodo = ({ title, desc }) => {
-  if (!title || !title.trim === "") {
-    throw new Error("Judul wajib di isi");
-  }
-
-  return {
-    id: Date.now(),
-    title: title.trim(),
-    desc: desc?.trim() || "",
-    done: false,
-    createdAt: new Date(),
-  };
-};
 
 // show todo page
 exports.index = (req, res) => {
-  const error = req.flash("error");
-  const success = req.flash("success");
-  res.render("home", { title, todos, error, success });
+  try {
+    const { todos } = findTodo(null);
+
+    const error = req.flash("error");
+    const success = req.flash("success");
+    res.render("home", { title, todos, todo: null, error, success });
+  } catch (e) {
+    console.error(e.message);
+  }
 };
 
 // add todo
 exports.addTodo = (req, res) => {
   try {
-    const todo = objectTodo(req.body);
-    todos.push(todo);
+    const { todos } = findTodo(null);
+    todos.push(objectTodo(req.body));
+
+    saveTodos(todos);
 
     req.flash("success", "Data Berhasil Ditambah");
     // console.log('addTodo');
@@ -40,13 +33,47 @@ exports.addTodo = (req, res) => {
   }
 };
 
+exports.editTodo = (req, res) => {
+  try {
+    const { todos, todo } = findTodo(req.params.id);
+
+    if (!todo) res.send("Data tidak ditemukan");
+
+    const error = req.flash("error");
+    const success = req.flash("success");
+    res.render("home", { title, todos, todo, error, success });
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+exports.updateTodo = (req, res) => {
+  try {
+    const { todos, todoIndex } = findTodo(req.params.id);
+
+    if (todoIndex === -1) "Data tidak ditemukan";
+
+    todos[todoIndex].title = req.body.title;
+    todos[todoIndex].desc = req.body.desc;
+
+    saveTodos(todos);
+    req.flash("success", "Data Berhasil Diubah");
+
+    res.redirect("/");
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
 exports.deleteTodo = (req, res) => {
   try {
-    const todoIndex = todos.findIndex((todo) => todo.id == req.params.id);
+    const { todos, todoIndex } = findTodo(req.params.id);
 
-    if (todoIndex > -1) {
-      todos.splice(todoIndex, 1);
-    }
+    if (todoIndex === -1) res.send("Data tidak ditemukan");
+
+    todos.splice(todoIndex, 1);
+
+    saveTodos(todos);
 
     req.flash("success", "Data Berhasil Dihapus");
     // console.log('deleteTodo');

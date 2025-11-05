@@ -16,4 +16,5 @@ Node JS, Express
 
 1. Initilalization project, up to github
 2. Starting routing, controller, view)
-3. 🎯 Goal Fitur Todo List (Phase 1 / No DB)
+3. 🎯 Goal Todo List Fitur(Phase 1 / No DB)
+4. 🎯 Goal Data to JSON file (Phase 2 / No DB), Fitur Edit Todo (Inline Form Edit)
