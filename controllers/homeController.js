@@ -49,15 +49,32 @@ exports.editTodo = (req, res) => {
 
 exports.updateTodo = (req, res) => {
   try {
-    const { todos, todoIndex } = findTodo(req.params.id);
+    const { todos, todo, todoIndex } = findTodo(req.params.id);
 
     if (todoIndex === -1) "Data tidak ditemukan";
 
-    todos[todoIndex].title = req.body.title;
-    todos[todoIndex].desc = req.body.desc;
+    todo.title = req.body.title;
+    todo.desc = req.body.desc;
 
     saveTodos(todos);
     req.flash("success", "Data Berhasil Diubah");
+
+    res.redirect("/");
+  } catch (e) {
+    console.error(e.message);
+  }
+};
+
+exports.updateCompleteTodo = (req, res) => {
+  try {
+    const { todos, todo, todoIndex } = findTodo(req.params.id);
+
+    if (todoIndex === -1) "Data tidak ditemukan";
+    todo.done = !todo.done;
+    console.log(todos);
+
+    saveTodos(todos);
+    req.flash("success", `Updated data`);
 
     res.redirect("/");
   } catch (e) {

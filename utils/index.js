@@ -12,7 +12,7 @@ if (!fs.existsSync(filePath)) {
   fs.writeFileSync(filePath, "[]");
 }
 
-const objectTodo = ({ title, desc }) => {
+const objectTodo = ({ title, desc, completed }) => {
   if (!title || title.trim() === "") {
     throw new Error("Judul wajib di isi");
   }
@@ -21,7 +21,7 @@ const objectTodo = ({ title, desc }) => {
     id: Date.now(),
     title: title.trim(),
     desc: desc?.trim() || "",
-    done: false,
+    done: completed,
     createdAt: new Date(),
   };
 };
