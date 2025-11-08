@@ -1,3 +1,166 @@
-<h1>About Page</h1>
-<p>Nama saya: <%= name %></p>
-<p>Hobi saya: <%= hobby %></p>
+<div class="max-w-3xl mx-auto">
+  <h1 class="text-3xl font-semibold mb-6 border-b pb-2">About the Project</h1>
+
+  <div class="bg-white shadow-sm rounded-lg p-6 leading-relaxed">
+    <p class="text-gray-700 mb-4">
+      Aplikasi ini merupakan project pembelajaran dalam memahami dasar-dasar
+      pengembangan back-end menggunakan
+      <span class="font-medium">Node.js</span> dengan framework
+      <span class="font-medium">Express</span>, serta penerapan
+      <span class="font-medium">EJS</span> sebagai template engine dan
+      <span class="font-medium">Tailwind CSS</span> untuk styling tampilan.
+      Seluruh data pada aplikasi ini disimpan secara lokal di dalam aplikasi,
+      tanpa menggunakan database eksternal.
+    </p>
+
+    <p class="text-gray-700 mb-4">
+      Tujuan utama aplikasi ini adalah untuk membantu pengguna dalam mencatat
+      dan mengelola daftar aktivitas (to-do) secara sederhana dan cepat melalui
+      antarmuka yang ringkas serta mudah dipahami.
+    </p>
+
+    <div class="mt-6 flex justify-end">
+      <a
+        href="/"
+        class="inline-block px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+      >
+        Kembali
+      </a>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-12 mb-4 border-b pb-2">Fitur Utama</h2>
+
+  <div class="space-y-6 bg-white shadow-sm rounded-lg p-6 leading-relaxed">
+    <div>
+      <h3 class="text-lg font-medium mb-2">1. Menambahkan Tugas</h3>
+      <p class="text-gray-700">
+        Pengguna dapat membuat tugas baru dengan mengisi
+        <span class="font-medium">judul</span> dan
+        <span class="font-medium">deskripsi</span>. Setiap tugas yang
+        ditambahkan akan langsung muncul dalam bentuk card pada daftar tugas.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-medium mb-2">2. Mengedit Tugas</h3>
+      <p class="text-gray-700">
+        Pengguna dapat mengubah judul maupun deskripsi dari tugas yang telah
+        dibuat jika diperlukan. Perubahan akan diperbarui secara langsung.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-medium mb-2">3. Menghapus Tugas</h3>
+      <p class="text-gray-700">
+        Pengguna dapat menghapus tugas yang sudah tidak dibutuhkan. Setelah
+        dihapus, tugas tersebut tidak akan muncul lagi dalam daftar.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-medium mb-2">4. Menandai Tugas Selesai</h3>
+      <p class="text-gray-700">
+        Setiap tugas dapat ditandai sebagai
+        <span class="font-medium">Completed / Selesai</span>. Status ini
+        memudahkan pengguna mengetahui tugas mana yang sudah selesai dikerjakan.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-medium mb-2">5. Filter Berdasarkan Status</h3>
+      <p class="text-gray-700">
+        Pengguna dapat menampilkan daftar tugas berdasarkan:
+      </p>
+      <ul class="list-disc pl-6 text-gray-700 mt-2">
+        <li>Semua tugas</li>
+        <li>Tugas yang sudah selesai</li>
+        <li>Tugas yang belum selesai</li>
+      </ul>
+      <p class="text-gray-700 mt-2">
+        Fitur ini membantu pengguna fokus pada prioritas yang ingin diselesaikan
+        terlebih dahulu.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-medium mb-2">6. Pencarian (Search)</h3>
+      <p class="text-gray-700">
+        Pengguna dapat mencari tugas berdasarkan
+        <span class="font-medium">judul</span> atau
+        <span class="font-medium">deskripsi</span>. Fitur ini berguna ketika
+        daftar tugas sudah semakin banyak.
+      </p>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-12 mb-4 border-b pb-2">
+    Teknologi yang Digunakan
+  </h2>
+
+  <div class="overflow-x-auto bg-white">
+    <table
+      class="w-full border border-gray-300 text-left text-gray-700 text-sm"
+    >
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-3 border-b">Bagian</th>
+          <th class="px-4 py-3 border-b">Teknologi</th>
+          <th class="px-4 py-3 border-b">Keterangan</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="px-4 py-3 border-b">Back-End</td>
+          <td class="px-4 py-3 border-b">Node.js + Express</td>
+          <td class="px-4 py-3 border-b">Mengatur routing dan proses data</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 border-b">Front-End</td>
+          <td class="px-4 py-3 border-b">
+            EJS (Embedded JavaScript Templates)
+          </td>
+          <td class="px-4 py-3 border-b">
+            Templating tampilan berbasis server
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3 border-b">Styling UI</td>
+          <td class="px-4 py-3 border-b">Tailwind CSS</td>
+          <td class="px-4 py-3 border-b">
+            Membuat tampilan modern, rapi, dan ringan
+          </td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3">Penyimpanan Data</td>
+          <td class="px-4 py-3">Local JSON / Data Lokal</td>
+          <td class="px-4 py-3">Belum menggunakan database eksternal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-12 mb-4 border-b pb-2">Kesimpulan</h2>
+
+  <div
+    class="bg-white shadow-sm rounded-lg p-6 leading-relaxed text-gray-700 space-y-4"
+  >
+    <p>
+      Aplikasi To-Do List ini dikembangkan sebagai sarana pembelajaran untuk
+      memahami dasar-dasar pengembangan web, seperti:
+    </p>
+
+    <ul class="list-disc pl-6 space-y-1">
+      <li>Manipulasi data dan proses server-side menggunakan Node.js</li>
+      <li>Routing dan pengaturan flow aplikasi menggunakan Express</li>
+      <li>Pengelolaan tampilan dinamis menggunakan EJS</li>
+      <li>Penerapan desain responsif dan modern menggunakan Tailwind CSS</li>
+    </ul>
+
+    <p>
+      Walaupun sederhana, aplikasi ini sudah mencakup konsep penting dalam
+      pengembangan web berbasis server dan dapat menjadi pondasi untuk
+      mempelajari sistem yang lebih kompleks ke depannya.
+    </p>
+  </div>
+</div>

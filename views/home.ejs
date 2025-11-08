@@ -5,7 +5,7 @@
   <div class="bg-green-100 text-green-700 p-2 rounded mb-3"><%= success %></div>
   <% } %>
   <form
-    class="w-full max-w-lg bg-white shadow-md rounded-lg p-6 space-y-4"
+    class="w-full max-w-xl bg-white shadow-md rounded-lg p-6 space-y-4"
     method="post"
     action="<%= todo ? `/update-todo/${todo.id}` : `/add-todo` %>"
   >
@@ -37,6 +37,7 @@
 <%= todo ? todo.desc : '' %></textarea
       >
     </div>
+    <input type="hidden" id="done" name="done" value="" />
 
     <button
       type="submit"
@@ -45,6 +46,69 @@
       <%= todo ? 'Update Todo' : 'Tambah Todo' %>
     </button>
   </form>
+</section>
+
+<section class="w-full justify-center items-center max-w-xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <div class="bg-white shadow-md rounded-lg p-4 space-y-2">
+    <form action="/?search" method="get" class="search w-full max-w-lg">
+      <div class="relative w-full flex items-center">
+        <input
+          type="search"
+          id="search"
+          name="search"
+          placeholder="Search..."
+          class="w-full border border-gray-300 rounded-md pl-3 pr-10 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        />
+
+        <!-- Wrapper Icon (ikuti padding input biar pas) -->
+        <div class="absolute right-2 top-1/2 -translate-y-1/2">
+          <button
+            type="submit"
+            class="text-blue-500 hover:text-blue-600 transition p-1"
+          >
+            <%- include('./partials/icon-search') %>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="filter bg-white shadow-md rounded-lg p-4 space-y-2">
+    <div class="flex items-center justify-between relative">
+      <select
+        name="filter"
+        id="filter"
+        class="cursor-pointer appearance-none w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+      >
+        <option value="" disabled <%= !activeFilter ? 'selected' : '' %>>
+          Filter Todo
+        </option>
+        <option value="all" <%= activeFilter == 'all' ? 'selected' : '' %>>
+          All
+        </option>
+        <option value="done" <%= activeFilter == 'done' ? 'selected' : '' %>>
+          Selesai
+        </option>
+        <option value="notDone" <%= activeFilter == 'notDone' ? 'selected' : '' %>>
+          Belum Selesai
+        </option>
+      </select>
+      <div
+        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+      >
+        <!-- Icon chevron-down -->
+        <%- include('./partials/icon-chevron-down') %>
+      </div>
+      <div
+        class="absolute right-12 flex items-center pointer-events-none bg-blue-600 rounded-full px-2 py-0"
+      >
+        <!-- Icon chevron-down -->
+        <p class="text-white text-sm">
+          <%= todos.length %>
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Data Todo -->
@@ -57,22 +121,24 @@
         <%= todo.title %>
       </h3>
 
-      <button
-        type="submit"
-        onclick="openDeleteModal('<%= todo.id%>')"
-        class="opacity-0 group-hover:opacity-100 transition text-red-600 hover:text-red-700"
-      >
-        <!-- icon trash -->
-        <%- include('./partials/icon-trash') %>
-      </button>
-
-      <a
-        href="/edit-todo/<%= todo.id %>"
-        class="opacity-0 group-hover:opacity-100 transition text-green-600 hover:text-green-700"
-      >
-        <!-- icon edit -->
-        <%- include('./partials/icon-edit') %>
-      </a>
+      <div class="btn flex flex-col-reverse gap-2">
+        <button
+          type="submit"
+          onclick="openDeleteModal('<%= todo.id%>')"
+          class="opacity-0 group-hover:opacity-100 transition text-red-600 hover:text-red-700"
+        >
+          <!-- icon trash -->
+          <%- include('./partials/icon-trash') %>
+        </button>
+  
+        <a
+          href="/edit-todo/<%= todo.id %>"
+          class="opacity-0 group-hover:opacity-100 transition text-green-600 hover:text-green-700"
+        >
+          <!-- icon edit -->
+          <%- include('./partials/icon-edit') %>
+        </a>
+      </div>
     </div>
 
     <p class="text-sm text-gray-600 mt-2"><%= todo.desc %></p>
@@ -91,3 +157,9 @@
 
 <!-- modal delete konfirmasi -->
 <%- include('./partials/modal-confirm') %>
+<script>
+  document.getElementById("filter").addEventListener("change", function () {
+    let lokasi = this.value == "all" ? `/` : `/?filter=${this.value}`;
+    window.location = lokasi;
+  });
+</script>
