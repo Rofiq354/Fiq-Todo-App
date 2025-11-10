@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include('./head') %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title><%= title %></title>
+
+    <!-- Deskripsi Halaman -->
+    <meta
+      name="description"
+      content="Aplikasi Todo sederhana untuk mencatat aktifitas sehari-hari."
+    />
+    <meta
+      name="keywords"
+      content="todo app, belajar backend, express, nodejs, latihan CRUD & filter"
+    />
+    <meta name="author" content="Ainur Rofiq" />
+
+    <!-- Open Graph untuk Preview ketika dishare (WhatsApp, FB, IG, Discord) -->
+    <meta property="og:title" content="<%= title %>" />
+    <meta
+      property="og:description"
+      content="Aplikasi Todo sederhana untuk mencatat aktifitas sehari-hari."
+    />
+    <meta property="og:type" content="website" />
+
+    <meta property="og:image" content="/img/preview.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/img/favicon.png" />
+
+    <%- include('./head') %>
   </head>
   <body class="min-h-screen flex flex-col">
     <%- include('../partials/header') %>
 
     <hr />
 
-    <main class="min-h-max flex flex-col items-center justify-center bg-gray-100 p-6">
+    <main
+      class="min-h-max flex flex-col items-center justify-center bg-gray-100 p-6"
+    >
       <%- body %>
     </main>
 
