@@ -30,7 +30,7 @@ exports.index = (req, res) => {
 
     if (qSort == "newest") {
       result = result.sort((a, b) => b.id - a.id);
-    } else if (qSort == 'oldest'){
+    } else if (qSort == "oldest") {
       result = result.sort((a, b) => a.id - b.id);
     }
 
@@ -77,6 +77,7 @@ exports.editTodo = (req, res) => {
 
     const qSearch = req.query.search || "";
     const qFilter = req.query.filter || "";
+    const qSort = req.query.sort || "";
 
     let result = todos;
 
@@ -95,6 +96,12 @@ exports.editTodo = (req, res) => {
       });
     }
 
+    if (qSort == "newest") {
+      result = result.sort((a, b) => b.id - a.id);
+    } else if (qSort == "oldest") {
+      result = result.sort((a, b) => a.id - b.id);
+    }
+
     const error = req.flash("error");
     const success = req.flash("success");
     res.render("home", {
@@ -102,6 +109,7 @@ exports.editTodo = (req, res) => {
       todos: result,
       activeFilter: qFilter,
       activeSearch: qSearch,
+      activeSort: qSort,
       todo,
       error,
       success,
