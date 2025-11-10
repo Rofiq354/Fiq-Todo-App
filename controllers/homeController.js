@@ -1,4 +1,5 @@
 const { saveTodos, objectTodo, findTodo } = require("../utils/index");
+const Seo = require("../utils/dataSeo");
 
 const title = "Todo App";
 
@@ -37,7 +38,7 @@ exports.index = (req, res) => {
     const error = req.flash("error");
     const success = req.flash("success");
     res.render("home", {
-      title,
+      seo: Seo(req),
       todos: result,
       activeFilter: qFilter,
       activeSearch: qSearch,
@@ -105,7 +106,7 @@ exports.editTodo = (req, res) => {
     const error = req.flash("error");
     const success = req.flash("success");
     res.render("home", {
-      title,
+      seo: Seo(req),
       todos: result,
       activeFilter: qFilter,
       activeSearch: qSearch,
@@ -183,7 +184,7 @@ exports.deleteTodo = (req, res) => {
 
 exports.about = (req, res) => {
   res.render("about", {
-    title: `${title} | About`,
+    seo: Seo(req, '| About'),
     name: "Rofiq",
     hobby: "Programming",
   });
