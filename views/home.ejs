@@ -50,7 +50,7 @@
 
 <section class="w-full justify-center items-center max-w-xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
   <div class="bg-white shadow-md rounded-lg p-4 space-y-2">
-    <form action="/?search" method="get" class="search w-full max-w-lg">
+    <form id="searchForm" action="" method="get" class="search w-full max-w-lg">
       <div class="relative w-full flex items-center">
         <input
           type="search"
@@ -81,7 +81,7 @@
         class="cursor-pointer appearance-none w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
       >
         <option value="" disabled <%= !activeFilter ? 'selected' : '' %>>
-          Filter Todo
+          Filter Tugas
         </option>
         <option value="all" <%= activeFilter == 'all' ? 'selected' : '' %>>
           All
@@ -106,6 +106,31 @@
         <p class="text-white text-sm">
           <%= todos.length %>
         </p>
+      </div>
+    </div>
+  </div>
+  <div class="sort bg-white shadow-md rounded-lg p-4 space-y-2">
+    <div class="flex items-center justify-between relative">
+      <select
+        name="sort"
+        id="sort"
+        class="cursor-pointer appearance-none w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+      >
+        <option value="" disabled <%= !activeSort ? 'selected' : '' %>>
+          Sortir Tugas
+        </option>
+        <option value="oldest" <%= activeSort == 'oldest' ? 'selected' : '' %>>
+          Terlama
+        </option>
+        <option value="newest" <%= activeSort == 'newest' ? 'selected' : '' %>>
+          Terbaru
+        </option>
+      </select>
+      <div
+        class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+      >
+        <!-- Icon chevron-down -->
+        <%- include('./partials/icon-chevron-down') %>
       </div>
     </div>
   </div>
@@ -155,11 +180,65 @@
   <% }) %>
 </section>
 
+<div class="sort bg-blue-300 shadow-md rounded-2xl p-4 space-y-2 fixed bottom-5 right-3 z-10">
+  <div class="flex items-center justify-between relative">
+    <button id="reload" class="p-2 text-gray-600 hover:text-gray-900 transition">
+      <%- include('./partials/icon-reload') %>
+    </button>
+  </div>
+</div>
+
 <!-- modal delete konfirmasi -->
 <%- include('./partials/modal-confirm') %>
 <script>
-  document.getElementById("filter").addEventListener("change", function () {
-    let lokasi = this.value == "all" ? `/` : `/?filter=${this.value}`;
-    window.location = lokasi;
+  const filterEl = document.getElementById("filter");
+  const sortEl = document.getElementById("sort");
+  const searchEl = document.querySelector('form.search');
+  const searchValue = document.getElementById("search").value;
+
+  const reloadEl = document.getElementById('reload');
+
+  reloadEl.addEventListener('click', function () { 
+    return window.location = '/';
+  })
+  
+  searchEl.addEventListener("submit", function(e){
+    const params = new URLSearchParams(window.location.search);
+
+    if (searchValue) {
+      params.set("search", searchValue);
+    } else {
+      params.delete("search");
+    }
+
+    searchEl.action = `/?${params.toString()}`;
   });
+  
+  filterEl.addEventListener('change', function () {
+    const params = new URLSearchParams(window.location.search);
+    
+    if(this.value == 'all') {
+      params.delete('filter');
+    }else {
+      params.set('filter', this.value);
+      params.delete("search");
+    }
+    
+    window.location.search = params.toString();
+  });
+
+  sortEl.addEventListener('change', function () { 
+    const params = new URLSearchParams(window.location.search);
+
+    if(this.value == 'all') {
+      params.delete('sort');
+    }else {
+      params.set('sort', this.value);
+      params.delete("search");
+    }
+
+    window.location.search = params.toString();
+  });
+
+
 </script>
